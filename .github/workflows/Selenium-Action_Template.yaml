@@ -1,6 +1,7 @@
 name: Selenium Test
 
-on: [push]
+on:
+  workflow_dispatch:  # This event allows the workflow to be manually triggered
 
 jobs:
   build:
@@ -25,7 +26,7 @@ jobs:
         python Selenium-Template.py
 
     - name: Upload Results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: GitHub_Action_Results
         path: ./GitHub_Action_Results.txt
