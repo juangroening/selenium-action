@@ -1,12 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display
 
 # Start virtual display
 print("Starting virtual display...")
-display = Display(visible=0, size=(1200, 1200))  
+display = Display(visible=0, size=(1200, 1200))
 display.start()
 
 # Install and setup ChromeDriver
@@ -28,10 +27,15 @@ driver = webdriver.Chrome(options=chrome_options)
 try:
     print("Navigating to GitHub...")
     driver.get('http://github.com')
-    print("Page title:", driver.title)
+    page_title = driver.title
+    print("Page title:", page_title)
+    
+    print("Writing to file...")
     with open('./GitHub_Action_Results.txt', 'w') as f:
-        f.write(f"This was written with a GitHub action. Page title: {driver.title}")
+        f.write(f"This was written with a GitHub action. Page title: {page_title}")
     print("File written successfully.")
+except Exception as e:
+    print("An error occurred:", e)
 finally:
     print("Quitting WebDriver and stopping display...")
     driver.quit()
